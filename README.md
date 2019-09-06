@@ -17,11 +17,14 @@ ports (9000-9999) 是用于 p2p通信时relay
 ## auth
 
 coturn 支持不同的认证方式
+
 1、static username + password
     现在使用的方式
+    
 2、use-auth-secret，分为static(配置文件中hardcode）和dynamic(存在数据库）
     static 验证过
     dynamic未验证
+    
 3、oAuth
     未验证
 
