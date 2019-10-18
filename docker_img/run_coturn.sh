@@ -10,37 +10,20 @@ externalIp="$(dig +short myip.opendns.com @resolver1.opendns.com)"
 echo "internal ip is $internalIp"
 echo "external ip is $externalIp"
 
-#
-# current configs 
-# use default user+password long-time credential
-#   user=test:4080218913
-#   user=tst2:1234567890
-#
+conf="/rrcoturn/turnserver.conf"
 
-echo "listening-port=3478
-tls-listening-port=5349
-min-port=$MIN_PORT
-max-port=$MAX_PORT
-verbose
-lt-cred-mech
-user=test:4080218913
-user=tst2:1234567890
-realm=rrcoturn
-log-file=/rrcoturn/logs/turn.log
-cert=/rrcoturn/examples/etc/turn_server_cert.pem
-pkey=/rrcoturn/examples/etc/turn_server_pkey.pem
-mobility
-cli-ip="$internalIp"
-cli-password=1qaz@WSX
-no-stdout-log"  | tee /rrcoturn/turnserver.conf
+cp $CONFIG_NAME $conf
 
-#turnadmin -a -u $USERNAME -p $PASSWORD -r $REALM
+echo "cli-ip=$internalIp" >> $conf
+echo "min-port=$MIN_PORT" >> $conf
+echo "max-port=$MAX_PORT" >> $conf
+
+echo "\n"
+echo "current coturn config is as following:"
+echo "\n"
+cat $conf
 
 echo "Start roborock TURN server ..."
 
-turnserver -c /rrcoturn/turnserver.conf 
-
-#userdb=/var/lib/turn/turndb
-#external-ip="$externalIp"
-#listening-ip="$internalIp"
-#relay-ip="$internalIp"
+turnserver -c $conf
+ 

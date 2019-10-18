@@ -15,6 +15,8 @@ EXPOSE 5766
 ENV MIN_PORT=9100
 ENV MAX_PORT=9999
 
+ENV CONFIG_NAME=/rrcoturn/conf/turnserver.conf
+
 RUN apt-get update && apt-get install -y \
     dnsutils \
     telnet \
@@ -43,6 +45,7 @@ RUN apt-get update && apt-get install -y \
     #can also run directly from bin
     && make install \ 
     && mkdir -p /rrcoturn/logs/ \
+    && mkdir -p /rrcoturn/conf/ \
     && chmod a+x /rrcoturn/run_coturn.sh \
     && cd /rrcoturn
   
